@@ -97,17 +97,14 @@ const Footer = () => {
 <h3 className="font-semibold mb-3 text-lg">Install App</h3>
 <p className="text-sm mb-3">From App Store or Google Play</p>
 <div className="flex gap-3 mb-4">
-<Image src="/images/appstore.png" alt="App Store" width={140} height={40} />
-<Image src="/images/googleplay.png" alt="Google Play" width={140} height={40} />
+<Image src="/images/app-store.jpg" alt="App Store" width={140} height={40} />
+<Image src="/images/google-play.jpg" alt="Google Play" width={140} height={40} />
 </div>
 
 
 <p className="text-sm mb-2">Secured Payment Gateways</p>
 <div className="flex gap-2">
-<Image src="/images/visa.png" alt="Visa" width={45} height={30} />
-<Image src="/images/mastercard.png" alt="Mastercard" width={45} height={30} />
-<Image src="/images/maestro.png" alt="Maestro" width={45} height={30} />
-<Image src="/images/express.png" alt="American Express" width={45} height={30} />
+<Image src="/images/payment-method.png" alt="payment-method" width={400} height={60} />
 </div>
 </div>
 </div>
