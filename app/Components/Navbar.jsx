@@ -1,6 +1,9 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { BiSupport } from "react-icons/bi";
+import { SlFire } from "react-icons/sl";
+
 import {
   Menu,
   X,
@@ -17,21 +20,22 @@ const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
 
   return (
-    <header className="w-full bg-white border-b container mx-auto">
+    <header className="w-full bg-white ">
       {/* ---------------- MIDDLE AREA (LOGO + SEARCH + ICONS) ---------------- */}
-      <div className="flex items-center justify-between px-4 py-4">
+     <div className="border-b border-gray-300">
+       <div className="flex items-center justify-between px-4 py-4 gap-10  container mx-auto">
         {/* Logo */}
-        <div className="flex items-center space-x-2 text-green-700 text-3xl font-bold">
-          {/* <img src="/logo.png" alt="Nest Logo" className="w-12 h-12" /> */}
-          <div className="leading-5">
-            <span>Nest</span>
-            <div className="text-xs text-gray-600">MART & GROCERY</div>
-          </div>
+        <div className="flex items-center space-x-2 text-green-500 text-5xl font-bol">
+          <img src="/images/logo.svg" alt="Nest Logo" className="w-auto h-auto" />
+          {/* <div className="leading-5 ">
+            <span className="font-bold">Nest</span>
+            <div className="text-xs font-sans mt-4 text-gray-700">MART & GROCERY</div>
+          </div> */}
         </div>
 
         {/* Search Bar */}
         <div className="hidden md:flex items-center border border-green-300 rounded-full w-1/2 overflow-hidden">
-          <button className="flex items-center px-4 py-2 text-sm text-gray-700 bg-gray-50 border-r">
+          <button className="flex items-center px-4 py-2 text-[16px] font-medium text-gray-700 bg-gray-50 border-r">
             All Categories
             <ChevronDown className="w-4 h-4 ml-1" />
           </button>
@@ -48,20 +52,20 @@ const Navbar = () => {
         </div>
 
         {/* Location */}
-        <button className="hidden md:flex items-center px-4 py-2 border rounded-md text-gray-700 text-sm">
+        <button className="hidden md:flex items-center px-4 py-2 border rounded-md text-green-500 text-sm whitespace-nowrap">
           <MapPin className="w-4 h-4 mr-2" />
           Your Location
           <ChevronDown className="w-4 h-4 ml-1" />
         </button>
 
         {/* Icons */}
-        <div className="hidden md:flex items-center space-x-6 text-gray-700">
+        <div className="hidden md:flex items-center space-x-6 text-gray-500 font-medium ">
           <div className="relative flex items-center cursor-pointer">
             <GitCompare className="w-6 h-6" />
             <span className="absolute -top-2 -right-3 bg-green-600 text-white text-xs rounded-full px-1">
               3
             </span>
-            <span className="ml-1 text-sm">Compare</span>
+            <span className="ml-1 text-[16px]">Compare</span>
           </div>
 
           <div className="relative flex items-center cursor-pointer">
@@ -69,7 +73,7 @@ const Navbar = () => {
             <span className="absolute -top-2 -right-3 bg-green-600 text-white text-xs rounded-full px-1">
               6
             </span>
-            <span className="ml-1 text-sm">Wishlist</span>
+            <span className="ml-1 text-[16px]">Wishlist</span>
           </div>
 
           <div className="relative flex items-center cursor-pointer">
@@ -77,12 +81,12 @@ const Navbar = () => {
             <span className="absolute -top-2 -right-3 bg-green-600 text-white text-xs rounded-full px-1">
               2
             </span>
-            <span className="ml-1 text-sm">Cart</span>
+            <span className="ml-1 text-[16px]">Cart</span>
           </div>
 
           <div className="flex items-center cursor-pointer">
             <User className="w-6 h-6" />
-            <span className="ml-1 text-sm">Account</span>
+            <span className="ml-1 text-[16px]">Account</span>
           </div>
         </div>
 
@@ -94,16 +98,18 @@ const Navbar = () => {
           {mobileMenu ? <X /> : <Menu />}
         </button>
       </div>
+     </div>
 
       {/* ---------------- NAVIGATION MENU ---------------- */}
-      <nav className="hidden md:flex items-center bg-white text-gray-700 px-4 py-3 text-sm space-x-6 border-t">
-        <button className="flex items-center space-x-2 bg-green-600 text-white px-5 py-2 rounded-md">
+      <nav className="border-b border-gray-300">
+        <div className="hidden md:flex items-center bg-white text-gray-700 px-4 py-3 text-[18px] font-medium space-x-6 container mx-auto ">
+          <button className="flex items-center space-x-2 bg-green-600 text-white px-5 py-2 rounded-md">
           <Menu className="w-5 h-5" />
           <span className="font-semibold">Browse All Categories</span>
         </button>
 
         <Link href="/" className="flex items-center space-x-1">
-          <span>🔥</span>
+          <SlFire className="text-xl text-green-700"/>
           <span>Deals</span>
         </Link>
 
@@ -119,9 +125,13 @@ const Navbar = () => {
         <Link href="/">Pages ▾</Link>
         <Link href="/">Contact</Link>
 
-        <div className="ml-auto flex items-center space-x-2 font-bold text-green-700">
-          <span className="text-2xl">1900 - 888</span>
-          <span className="text-xs text-gray-500">24/7 Support Center</span>
+        <div className="ml-auto flex items-center space-x-2 font-bold text-green-500">
+          <span className="text-4xl text-gray-600"><BiSupport/></span>
+         <div className="flex-c">
+           <span className="text-2xl">1900 - 888</span>
+          <p className="text-xs font-medium text-gray-500">24/7 Support Center</p>
+         </div>
+        </div>
         </div>
       </nav>
 
