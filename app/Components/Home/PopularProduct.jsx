@@ -123,7 +123,7 @@ const PopularProduct = () => {
         {filteredProducts.map((product) => (
           <div
             key={product.id}
-            className="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition relative border"
+            className="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition relative border border-gray-400"
           >
             {/* Badge */}
             {product.badge && (
