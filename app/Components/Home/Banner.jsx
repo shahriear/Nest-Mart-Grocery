@@ -1,45 +1,45 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { BiLeftArrow, BiRightArrow } from 'react-icons/bi';
+"use client";
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 
 const Banner = () => {
   const slides = [
     {
       id: 1,
-      img: '/images/slider-1.png',
-      title: ['Do not miss amazing', 'grocery deals'],
-      subtitle: 'Sign up for daily newsletter',
+      img: "/images/slider-1.png",
+      title: ["Do not miss amazing", "grocery deals"],
+      subtitle: "Sign up for daily newsletter",
     },
     {
       id: 2,
-      img: '/images/slider-2.png',
-      title: ['Fresh Vegetables', 'Big Discount'],
-      subtitle: 'Save up to 50% off on your first order',
+      img: "/images/slider-2.png",
+      title: ["Fresh Vegetables", "Big Discount"],
+      subtitle: "Save up to 50% off on your first order",
     },
   ];
 
   const [current, setCurrent] = useState(0);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrent(prev => (prev + 1) % slides.length);
+      setCurrent((prev) => (prev + 1) % slides.length);
     }, 4000);
     return () => clearInterval(timer);
   }, []);
 
   const prevSlide = () => {
-    setCurrent(prev => (prev - 1 + slides.length) % slides.length);
+    setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
   const nextSlide = () => {
-    setCurrent(prev => (prev + 1) % slides.length);
+    setCurrent((prev) => (prev + 1) % slides.length);
   };
 
   const handleSubscribe = () => {
-    console.log('Subscribed email:', email);
-    setEmail(''); // clear after subscribe (optional)
+    console.log("Subscribed email:", email);
+    setEmail(""); // clear after subscribe (optional)
   };
 
   return (
@@ -49,12 +49,12 @@ const Banner = () => {
         <div
           key={slide.id}
           className={`absolute inset-0 transition-opacity duration-700 ${
-            index === current ? 'opacity-100' : 'opacity-0'
+            index === current ? "opacity-100" : "opacity-0"
           }`}
         >
           <Image
             src={slide.img}
-            alt={slide.title.join(' ')}
+            alt={slide.title.join(" ")}
             fill
             className="object-cover"
           />
@@ -80,7 +80,7 @@ const Banner = () => {
                 type="email"
                 placeholder="Your email address"
                 value={email}
-                onChange={e => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 className="flex-1 px-4 py-3 rounded-l-full rounded-r-full sm:rounded-r-none border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-amber-50 w-full"
               />
               <button
@@ -117,7 +117,7 @@ const Banner = () => {
             key={index}
             onClick={() => setCurrent(index)}
             className={`w-4 h-4 rounded-full cursor-pointer transition-all ${
-              current === index ? 'bg-emerald-400 scale-125' : 'bg-gray-400'
+              current === index ? "bg-emerald-400 scale-125" : "bg-gray-400"
             }`}
           ></div>
         ))}

@@ -3,10 +3,10 @@
  const page = () => {
    return (
      <div>
-       contact
+       contactt
      </div>
    );
  }
  
- export default page;
+ export default page; 
  
