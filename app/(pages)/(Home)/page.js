@@ -6,19 +6,21 @@ import FeaturedCategories from "@/app/Components/Home/FeaturedCategories";
 import PopularProduct from "@/app/Components/Home/PopularProduct";
 import DealsOfTheDay from "@/app/Components/Home/DealsOfTheDay";
 import TopSelling from "@/app/Components/Home/TopSelling";
+import BannerBottom from "@/app/Components/Home/BannerBottom";
+import FeaturesSection from "@/app/Components/Home/FeaturesSection";
 
-const page = () => {
-  return (
-    <div>
-      <Banner />
-      <FeaturedCategories />
-      <AdsBanner />
-      <PopularProduct />
-      <DailyBestSellsWithBanner />
-      <DealsOfTheDay/>
-      <TopSelling/>
-    </div>
-  );
-};
+const page = () => (
+  <div>
+    <Banner />
+    <FeaturedCategories />
+    <AdsBanner />
+    <PopularProduct />
+    <DailyBestSellsWithBanner />
+    <DealsOfTheDay />
+    <TopSelling />
+    <BannerBottom />
+    <FeaturesSection />
+  </div>
+);
 
 export default page;
