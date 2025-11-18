@@ -132,7 +132,9 @@ const DailyBestSells = () => {
               <FiShoppingCart />
               Add to Cart
             </button>
+            <div className="test"></div>
           </div>
+
         ))}
       </div>
     </section>
