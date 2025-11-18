@@ -1,10 +1,10 @@
-
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 
+// Deals data with target end time (for demo, adjust dates)
 const deals = [
   {
     id: 1,
@@ -14,7 +14,8 @@ const deals = [
     oldPrice: 33.8,
     rating: 4,
     img: "/images/banner-5.png",
-    time: { days: 0, hours: 0, mins: 0, secs: 0 },
+    // target date for countdown
+    endTime: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // 2 days from now
   },
   {
     id: 2,
@@ -24,7 +25,7 @@ const deals = [
     oldPrice: 26.8,
     rating: 4,
     img: "/images/banner-6.png",
-    time: { days: 157, hours: 9, mins: 42, secs: 33 },
+    endTime: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000 + 3600 * 1000), // 3 days + 1 hour
   },
   {
     id: 3,
@@ -34,7 +35,7 @@ const deals = [
     oldPrice: 13.8,
     rating: 3,
     img: "/images/banner-7.png",
-    time: { days: 491, hours: 9, mins: 42, secs: 33 },
+    endTime: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000 + 5 * 3600 * 1000), // 1 day + 5 hours
   },
   {
     id: 4,
@@ -44,7 +45,7 @@ const deals = [
     oldPrice: 16.8,
     rating: 3,
     img: "/images/banner-8.png",
-    time: { days: 0, hours: 0, mins: 0, secs: 0 },
+    endTime: new Date(Date.now() + 5 * 60 * 1000), // 5 minutes
   },
 ];
 
@@ -56,11 +57,34 @@ const TimeBox = ({ value, label }) => (
   </div>
 );
 
-
 const DealsOfTheDay = () => {
+  const [times, setTimes] = useState({});
+
+  // Function to calculate remaining time
+  const calculateTimeLeft = () => {
+    const newTimes = {};
+    deals.forEach((deal) => {
+      const difference = deal.endTime - new Date();
+      newTimes[deal.id] = difference > 0
+        ? {
+            days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+            hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+            mins: Math.floor((difference / (1000 * 60)) % 60),
+            secs: Math.floor((difference / 1000) % 60),
+          }
+        : { days: 0, hours: 0, mins: 0, secs: 0 };
+    });
+    setTimes(newTimes);
+  };
+
+  useEffect(() => {
+    calculateTimeLeft();
+    const timer = setInterval(calculateTimeLeft, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section className="container mx-auto py-10">
-      {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-3xl font-bold text-gray-800">Deals Of The Day</h2>
         <button className="text-green-600 hover:text-green-800 transition">
@@ -68,14 +92,12 @@ const DealsOfTheDay = () => {
         </button>
       </div>
 
-      {/* Deals Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {deals.map((item) => (
           <div
             key={item.id}
             className="rounded-xl overflow-hidden bg-white shadow hover:shadow-lg transition"
           >
-            {/* Image */}
             <div className="relative">
               <Image
                 src={item.img}
@@ -85,32 +107,26 @@ const DealsOfTheDay = () => {
                 className="w-full h-56 object-cover"
               />
 
-              {/* Countdown */}
               <div className="absolute top-3 left-3 flex gap-2">
-                <TimeBox value={item.time.days} label="Days" />
-                <TimeBox value={item.time.hours} label="Hours" />
-                <TimeBox value={item.time.mins} label="Mins" />
-                <TimeBox value={item.time.secs} label="Sec" />
+                <TimeBox value={times[item.id]?.days || 0} label="Days" />
+                <TimeBox value={times[item.id]?.hours || 0} label="Hours" />
+                <TimeBox value={times[item.id]?.mins || 0} label="Mins" />
+                <TimeBox value={times[item.id]?.secs || 0} label="Sec" />
               </div>
             </div>
 
-            {/* Details */}
             <div className="p-4">
               <h3 className="font-semibold text-gray-700 text-sm leading-snug">
                 {item.title}
               </h3>
-
               <p className="text-xs text-gray-500 mt-1">By {item.brand}</p>
 
-              {/* Rating */}
               <div className="flex items-center gap-1 mt-2">
                 {Array.from({ length: 5 }).map((_, index) => (
                   <FaStar
                     key={index}
                     className={`text-sm ${
-                      index < item.rating
-                        ? "text-yellow-400"
-                        : "text-gray-300"
+                      index < item.rating ? "text-yellow-400" : "text-gray-300"
                     }`}
                   />
                 ))}
@@ -119,7 +135,6 @@ const DealsOfTheDay = () => {
                 </span>
               </div>
 
-              {/* Price */}
               <div className="mt-2">
                 <span className="text-green-600 font-semibold text-lg">
                   ${item.price}
@@ -129,7 +144,6 @@ const DealsOfTheDay = () => {
                 </span>
               </div>
 
-              {/* Add Button */}
               <button className="mt-3 w-full bg-green-600 text-white py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-green-700 transition">
                 <FiShoppingCart />
                 Add
@@ -140,6 +154,6 @@ const DealsOfTheDay = () => {
       </div>
     </section>
   );
-}
+};
 
 export default DealsOfTheDay;
