@@ -87,7 +87,7 @@ const Banner = () => {
                 onClick={handleSubscribe}
                 className="px-6 py-3 bg-emerald-400 text-white font-medium rounded-r-full sm:rounded-l-none hover:bg-emerald-500 transition-colors"
               >
-                Subscribe
+                Subscribeeeee
               </button>
             </div>
           </div>
