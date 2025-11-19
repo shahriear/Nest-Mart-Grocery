@@ -37,7 +37,7 @@ const FeaturedCategories = () => {
     }
   };
 
-  if (loading) return <p className="text-center py-10">Loading products...</p>;
+  if (loading) return <p className="text-center py-10">Loading products....</p>;
 
   return (
     <section className="py-8 container mx-auto">
