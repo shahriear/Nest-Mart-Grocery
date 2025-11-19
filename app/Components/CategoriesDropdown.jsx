@@ -33,7 +33,7 @@ const CategoriesDropdown = () => {
       {/* ---------- BUTTON ---------- */}
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center space-x-2 bg-green-600 text-white px-5 py-2 rounded-md"
+        className="flex items-center space-x-2  text-white px- py- rounded-md"
       >
         <span className="font-semibold">Browse All Categories</span>
         <ChevronDown
