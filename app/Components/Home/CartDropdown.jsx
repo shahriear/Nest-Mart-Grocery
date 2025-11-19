@@ -4,20 +4,12 @@ import { X } from "lucide-react";
 
 const CartDropdown = () => {
   const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Daisy Casual Bag",
-      qty: 1,
-      price: 800.0,
-      img: "/images/products/bag.png", // replace with your image path
-    },
-    {
-      id: 2,
-      name: "Corduroy Shirts",
-      qty: 1,
-      price: 3200.0,
-      img: "/images/products/shirt.png", // replace with your image path
-    },
+    { id: 1, name: "Daisy Casual Bag", qty: 1, price: 800.0, img: "/images/product-2-1.jpg" },
+    { id: 2, name: "Corduroy Shirts", qty: 1, price: 3200.0, img: "/images/product-2-1.jpg" },
+    { id: 3, name: "Daisy Casual Bag", qty: 1, price: 800.0, img: "/images/product-2-1.jpg" },
+    { id: 4, name: "Corduroy Shirts", qty: 1, price: 3200.0, img: "/images/product-2-1.jpg" },
+    { id: 5, name: "Daisy Casual Bag", qty: 1, price: 800.0, img: "/images/product-2-1.jpg" },
+    { id: 6, name: "Corduroy Shirts", qty: 1, price: 3200.0, img: "/images/product-2-1.jpg" },
   ]);
 
   const removeItem = (id) => {
@@ -27,27 +19,31 @@ const CartDropdown = () => {
   const total = cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
 
   return (
-    <div className="w-80 bg-white shadow-lg rounded-lg p-4">
+    <div className="w-80 bg-gray-100 shadow-2xl rounded-lg p-4">
       {/* Cart Items */}
-      <div className="space-y-4">
-        {cartItems.map((item) => (
-          <div key={item.id} className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <img src={item.img} alt={item.name} className="w-16 h-16 object-cover rounded" />
-              <div>
-                <p className="text-gray-700">{item.name}</p>
-                <p className="text-gray-500 text-sm">{item.qty} × ${item.price.toLocaleString()}</p>
+      <div className="space-y-4 max-h-72 overflow-y-auto">
+        {cartItems.length === 0 ? (
+          <p className="text-center text-gray-500 py-4">Your cart is empty</p>
+        ) : (
+          cartItems.map((item) => (
+            <div key={item.id} className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <img src={item.img} alt={item.name} className="w-16 h-16 object-cover rounded" />
+                <div>
+                  <p className="text-gray-700">{item.name}</p>
+                  <p className="text-gray-500 text-sm">{item.qty} × ${item.price.toLocaleString()}</p>
+                </div>
               </div>
+              <button onClick={() => removeItem(item.id)} aria-label={`Remove ${item.name}`}>
+                <X className="w-4 h-4 text-gray-400 hover:text-red-500" />
+              </button>
             </div>
-            <button onClick={() => removeItem(item.id)}>
-              <X className="w-4 h-4 text-gray-400 hover:text-red-500" />
-            </button>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
       {/* Total */}
-      <div className="flex justify-between mt-4 font-semibold text-gray-700">
+      <div className="flex justify-between mt-1 font-semibold text-gray-700">
         <span>Total</span>
         <span className="text-green-600">${total.toLocaleString()}</span>
       </div>
@@ -65,4 +61,4 @@ const CartDropdown = () => {
   );
 };
 
-export default CartDropdown;  
+export default CartDropdown;
