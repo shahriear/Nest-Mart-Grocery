@@ -2,6 +2,9 @@
 const nextConfig = {
   /* config options here */
   reactCompiler: true,
+  images: {
+    domains: ['cdn.dummyjson.com'],
+  },
 };
 
 export default nextConfig;

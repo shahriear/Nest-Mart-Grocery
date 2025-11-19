@@ -1,88 +1,61 @@
-"use client";
-import React from "react";
-import Image from "next/image";
-import { FaArrowLeftLong } from "react-icons/fa6";
-import { FaArrowRightLong } from "react-icons/fa6";
+'use client';
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6';
+import { getAllProducts } from '@/app/lib/getProducts';
 
-const categories = [
-  {
-    name: "Cake & Milk",
-    items: "26 items",
-    img: "/images/cat-12.png",
-    color: "bg-red-50",
-  },
-  {
-    name: "Organic Kiwi",
-    items: "28 items",
-    img: "/images/cat-12.png",
-    color: "bg-green-50",
-  },
-  {
-    name: "Peach",
-    items: "54 items",
-    img: "/images/cat-12.png",
-    color: "bg-yellow-50",
-  },
-  {
-    name: "Red Apple",
-    items: "56 items",
-    img: "/images/cat-12.png",
-    color: "bg-pink-50",
-  },
-  {
-    name: "Snack",
-    items: "56 items",
-    img: "/images/cat-12.png",
-    color: "bg-orange-50",
-  },
-  {
-    name: "Vegetables",
-    items: "72 items",
-    img: "/images/cat-12.png",
-    color: "bg-green-100",
-  },
-  {
-    name: "Strawberry",
-    items: "26 items",
-    img: "/images/cat-12.png",
-    color: "bg-red-100",
-  },
-  {
-    name: "Black Plum",
-    items: "12 items",
-    img: "/images/cat-12.png",
-    color: "bg-purple-100",
-  },
-  {
-    name: "Custard Apple",
-    items: "34 items",
-    img: "/images/cat-12.png",
-    color: "bg-teal-100",
-  },
-  {
-    name: "Coffe & Tea",
-    items: "89 items",
-    img: "/images/cat-12.png",
-    color: "bg-yellow-100",
-  },
-];
-const menuItems = ["Cake & Milk", "Coffes & Teas", "Pet Foods", "Vegetables"];
+const menuItems = ['All', 'groceries', 'laptops', 'fragrances', 'mens-shoes'];
 
 const FeaturedCategories = () => {
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [activeMenu, setActiveMenu] = useState('All');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadProducts() {
+      try {
+        const data = await getAllProducts();
+        setProducts(data);
+        setFilteredProducts(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadProducts();
+  }, []);
+
+  const handleMenuClick = menu => {
+    setActiveMenu(menu);
+    if (menu === 'All') {
+      setFilteredProducts(products);
+    } else {
+      setFilteredProducts(products.filter(p => p.category === menu));
+    }
+  };
+
+  if (loading) return <p className="text-center py-10">Loading products...</p>;
+
   return (
     <section className="py-8 container mx-auto">
-      {/* Heading + Right Filter Menu */}
+      {/* Heading + Menu */}
       <div className="flex items-center justify-between mb-5">
-        {/* Left: Title + Menu */}
-        <div className="flex items-center gap-15">
+        <div className="flex items-center gap-10">
           <h2 className="text-2xl font-bold">Featured Categories</h2>
 
-          {/* Menu Items */}
-          <div className="flex gap-7 text-gray-600 cursor-pointer flex-wrap">
+          <div className="flex gap-5 text-gray-600 cursor-pointer flex-wrap">
             {menuItems.map((item, i) => (
               <span
                 key={i}
-                className="hover:text-green-600 transition font-medium text-[16px] "
+                className={`font-medium text-[16px] transition ${
+                  activeMenu === item
+                    ? 'text-green-600 underline'
+                    : 'hover:text-green-500'
+                }`}
+                onClick={() => handleMenuClick(item)}
               >
                 {item}
               </span>
@@ -90,28 +63,28 @@ const FeaturedCategories = () => {
           </div>
         </div>
 
-        {/* Right: Arrows */}
         <div className="flex gap-3">
           <FaArrowLeftLong className="text-3xl text-gray-500 bg-gray-200 hover:bg-green-500 hover:text-white p-2 rounded-xl cursor-pointer" />
           <FaArrowRightLong className="text-3xl text-gray-500 bg-gray-200 hover:bg-green-500 hover:text-white p-2 rounded-xl cursor-pointer" />
         </div>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-10 gap-4">
-        {categories.map((cat, index) => (
+      {/* Products Row */}
+      <div className="flex gap-4 overflow-x-auto py-2">
+        {filteredProducts.map((prod, i) => (
           <div
-            key={index}
-            className={`rounded-xl p-4 flex flex-col items-center justify-center hover:shadow-md transition cursor-pointer ${cat.color}`}
+            key={i}
+            className="min-w-[150px] rounded-xl p-4 flex flex-col items-center justify-center hover:shadow-md transition cursor-pointer bg-gray-50"
           >
             <Image
-              src={cat.img}
-              alt={cat.name}
-              width={60}
-              height={60}
+              src={prod.thumbnail}
+              alt={prod.title}
+              width={80}
+              height={80}
               className="mb-3"
             />
-            <h3 className="font-semibold text-sm">{cat.name}</h3>
-            <p className="text-xs text-gray-500">{cat.items}</p>
+            <h3 className="font-semibold text-sm text-center">{prod.title}</h3>
+            <p className="text-xs text-gray-500 mt-1">${prod.price}</p>
           </div>
         ))}
       </div>

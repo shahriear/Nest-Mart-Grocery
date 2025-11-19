@@ -108,7 +108,7 @@ const Navbar = () => {
               onMouseEnter={() => setCartOpen(true)}
               onMouseLeave={() => setCartOpen(false)}
             >
-              <ShoppingCart className="w-6 h-6" />
+              <ShoppingCart className="w-6 h-6 " />
               <span className="absolute -top-2 -right-3 bg-green-600 text-white text-xs rounded-full px-1">
                 2
               </span>
@@ -116,7 +116,7 @@ const Navbar = () => {
 
               {/* Cart Dropdown */}
               {cartOpen && (
-                <div className="absolute top-full right-0 mt-2 z-50">
+                <div className="absolute top-full -right-40 mt-0 z-50 ">
                   <CartDropdown />
                 </div>
               )}
@@ -165,11 +165,11 @@ const Navbar = () => {
                 <ChevronDown className="w-4 h-4" />
               </span>
               <div
-                className="absolute left-0 mt-3 bg-white shadow-lg rounded-lg p-4 w-44 z-50
+                className="absolute left-0 mt-3 bg-white shadow-xl rounded-lg p-4 w-44 z-50
                 opacity-0 scale-95 -translate-y-3 pointer-events-none
                 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0
                 group-hover:pointer-events-auto
-                transition-all duration-400 origin-top text-[15px]"
+                transition-all duration-400 top-4 text-[15px]"
               >
                 {dropdownMenus[menuName].map((item, i) => (
                   <Link
