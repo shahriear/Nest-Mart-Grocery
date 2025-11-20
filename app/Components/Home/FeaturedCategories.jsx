@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6';
 import { getAllProducts } from '@/app/lib/getProducts';
@@ -11,8 +11,7 @@ const FeaturedCategories = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [activeMenu, setActiveMenu] = useState('All');
   const [loading, setLoading] = useState(true);
-
-  const scrollRef = useRef(null); 
+  const rowRef = useRef(null); // <-- ref for products row
 
   useEffect(() => {
     async function loadProducts() {
@@ -26,25 +25,44 @@ const FeaturedCategories = () => {
         setLoading(false);
       }
     }
+
     loadProducts();
   }, []);
 
   const handleMenuClick = menu => {
     setActiveMenu(menu);
-    if (menu === 'All') setFilteredProducts(products);
-    else setFilteredProducts(products.filter(p => p.category === menu));
+    if (menu === 'All') {
+      setFilteredProducts(products);
+    } else {
+      setFilteredProducts(products.filter(p => p.category === menu));
+    }
   };
 
-  
-  const slideLeft = () => {
-    scrollRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+  // Scroll functions
+  const scrollLeft = () => {
+    if (rowRef.current) {
+      rowRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+    }
   };
 
-  const slideRight = () => {
-    scrollRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+  const scrollRight = () => {
+    if (rowRef.current) {
+      rowRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+    }
   };
 
-  if (loading) return <p className="text-center py-10">Loading products....</p>;
+  if (loading)
+    return (
+      <div className="w-full py-10 flex justify-center">
+        <Image
+          src="/images/local.gif"
+          alt="Loading..."
+          width={100}
+          height={80}
+          className="opacity-80"
+        />
+      </div>
+    );
 
   return (
     <section className="py-8 container mx-auto">
@@ -72,11 +90,11 @@ const FeaturedCategories = () => {
 
         <div className="flex gap-3">
           <FaArrowLeftLong
-            onClick={slideLeft}
+            onClick={scrollLeft}
             className="text-3xl text-gray-500 bg-gray-200 hover:bg-green-500 hover:text-white p-2 rounded-xl cursor-pointer"
           />
           <FaArrowRightLong
-            onClick={slideRight}
+            onClick={scrollRight}
             className="text-3xl text-gray-500 bg-gray-200 hover:bg-green-500 hover:text-white p-2 rounded-xl cursor-pointer"
           />
         </div>
@@ -84,8 +102,8 @@ const FeaturedCategories = () => {
 
       {/* Products Row */}
       <div
-        ref={scrollRef}
-        className="flex gap-4 overflow-x-auto py-2 scrollbar-hide"
+        ref={rowRef}
+        className="flex gap-4 overflow-x-auto py-2 scroll-smooth"
       >
         {filteredProducts.map((prod, i) => (
           <div
