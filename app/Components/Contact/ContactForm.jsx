@@ -33,7 +33,7 @@ Send message
 
 
 <img
-src="/images/contact-img.jpg"
+src="/images/contact-2.png"
 alt="Contact"
 className="rounded-xl w-full max-w-sm mx-auto"
 />
