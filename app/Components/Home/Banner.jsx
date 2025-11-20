@@ -39,7 +39,7 @@ const Banner = () => {
 
   const handleSubscribe = () => {
     console.log("Subscribed email:", email);
-    setEmail(""); // clear after subscribe (optional)
+    setEmail(""); 
   };
 
   return (

@@ -164,13 +164,7 @@ const Navbar = () => {
                 {menuName}
                 <ChevronDown className="w-4 h-4" />
               </span>
-              <div
-                className="absolute left-0 mt-3 bg-white shadow-xl rounded-lg p-4 w-44 z-50
-                opacity-0 scale-95 -translate-y-3 pointer-events-none
-                group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0
-                group-hover:pointer-events-auto
-                transition-all duration-400 top-4 text-[15px]"
-              >
+              <div className="absolute left-0 mt-3 bg-white shadow-xl rounded-lg p-4 w-44 z-50 opacity-0 scale-95 -translate-y-3 pointer-events-none group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-400 top-4 text-[15px]">
                 {dropdownMenus[menuName].map((item, i) => (
                   <Link
                     key={i}

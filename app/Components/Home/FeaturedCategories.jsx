@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6';
 import { getAllProducts } from '@/app/lib/getProducts';
@@ -11,6 +11,8 @@ const FeaturedCategories = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [activeMenu, setActiveMenu] = useState('All');
   const [loading, setLoading] = useState(true);
+
+  const scrollRef = useRef(null); 
 
   useEffect(() => {
     async function loadProducts() {
@@ -24,17 +26,22 @@ const FeaturedCategories = () => {
         setLoading(false);
       }
     }
-
     loadProducts();
   }, []);
 
   const handleMenuClick = menu => {
     setActiveMenu(menu);
-    if (menu === 'All') {
-      setFilteredProducts(products);
-    } else {
-      setFilteredProducts(products.filter(p => p.category === menu));
-    }
+    if (menu === 'All') setFilteredProducts(products);
+    else setFilteredProducts(products.filter(p => p.category === menu));
+  };
+
+  
+  const slideLeft = () => {
+    scrollRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+  };
+
+  const slideRight = () => {
+    scrollRef.current.scrollBy({ left: 300, behavior: 'smooth' });
   };
 
   if (loading) return <p className="text-center py-10">Loading products....</p>;
@@ -64,13 +71,22 @@ const FeaturedCategories = () => {
         </div>
 
         <div className="flex gap-3">
-          <FaArrowLeftLong className="text-3xl text-gray-500 bg-gray-200 hover:bg-green-500 hover:text-white p-2 rounded-xl cursor-pointer" />
-          <FaArrowRightLong className="text-3xl text-gray-500 bg-gray-200 hover:bg-green-500 hover:text-white p-2 rounded-xl cursor-pointer" />
+          <FaArrowLeftLong
+            onClick={slideLeft}
+            className="text-3xl text-gray-500 bg-gray-200 hover:bg-green-500 hover:text-white p-2 rounded-xl cursor-pointer"
+          />
+          <FaArrowRightLong
+            onClick={slideRight}
+            className="text-3xl text-gray-500 bg-gray-200 hover:bg-green-500 hover:text-white p-2 rounded-xl cursor-pointer"
+          />
         </div>
       </div>
 
       {/* Products Row */}
-      <div className="flex gap-4 overflow-x-auto py-2">
+      <div
+        ref={scrollRef}
+        className="flex gap-4 overflow-x-auto py-2 scrollbar-hide"
+      >
         {filteredProducts.map((prod, i) => (
           <div
             key={i}

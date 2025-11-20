@@ -36,7 +36,7 @@ export default function LocationDropdown() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Filter locations based on search
+  // Filter locations ,search
   useEffect(() => {
     setFiltered(
       locationsList.filter((loc) =>
@@ -60,16 +60,19 @@ export default function LocationDropdown() {
         <MapPin className="w-4 h-4 mr-2 text-green-500" />
         {selected}
         <ChevronDown
-          className={`w-4 h-4 ml-1 transition-transform ${open ? "rotate-180" : ""}`}
+          className={`w-4 h-4 ml-1 transition-transform ${
+            open ? "rotate-180" : ""
+          }`}
         />
       </button>
 
       {/* Dropdown */}
       <div
-        className={`absolute left-0 top-full mt-1 bg-white shadow-2xl rounded-lg overflow-hidden z-50
-        w-full transition-all duration-500 transform origin-top
-        ${open ? "opacity-100 scale-100 max-h-[250px] p-2" : "opacity-0 scale-95 max-h-0 p-0 pointer-events-none"}
-        `}
+        className={`absolute left-0 top-full mt-1 bg-white shadow-2xl rounded-lg overflow-hidden z-50 w-full transition-all duration-500 transform origin-top ${
+          open
+            ? "opacity-100 scale-100 max-h-[250px] p-2"
+            : "opacity-0 scale-95 max-h-0 p-0 pointer-events-none"
+        }`}
       >
         {/* Search */}
         <input
@@ -93,7 +96,9 @@ export default function LocationDropdown() {
               </li>
             ))
           ) : (
-            <li className="px-3 py-2 text-sm text-gray-400">No results found</li>
+            <li className="px-3 py-2 text-sm text-gray-400">
+              No results found
+            </li>
           )}
         </ul>
       </div>

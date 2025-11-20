@@ -25,7 +25,7 @@ export default function AllCategories() {
   const [filtered, setFiltered] = useState(categoriesList);
   const dropdownRef = useRef(null);
 
-  // Close dropdown on outside click
+  // Close dropdown 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {

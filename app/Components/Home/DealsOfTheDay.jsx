@@ -4,7 +4,6 @@ import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 
-// Deals data with target end time (for demo, adjust dates)
 const deals = [
   {
     id: 1,
@@ -49,7 +48,6 @@ const deals = [
   },
 ];
 
-// Countdown UI box
 const TimeBox = ({ value, label }) => (
   <div className="bg-white/90 rounded-md p-3 shadow text-center min-w-[70px]">
     <p className="text-lg font-semibold">{value.toString().padStart(2, "0")}</p>
@@ -60,19 +58,19 @@ const TimeBox = ({ value, label }) => (
 const DealsOfTheDay = () => {
   const [times, setTimes] = useState({});
 
-  // Function to calculate remaining time
   const calculateTimeLeft = () => {
     const newTimes = {};
     deals.forEach((deal) => {
       const difference = deal.endTime - new Date();
-      newTimes[deal.id] = difference > 0
-        ? {
-            days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-            hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-            mins: Math.floor((difference / (1000 * 60)) % 60),
-            secs: Math.floor((difference / 1000) % 60),
-          }
-        : { days: 0, hours: 0, mins: 0, secs: 0 };
+      newTimes[deal.id] =
+        difference > 0
+          ? {
+              days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+              hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+              mins: Math.floor((difference / (1000 * 60)) % 60),
+              secs: Math.floor((difference / 1000) % 60),
+            }
+          : { days: 0, hours: 0, mins: 0, secs: 0 };
     });
     setTimes(newTimes);
   };

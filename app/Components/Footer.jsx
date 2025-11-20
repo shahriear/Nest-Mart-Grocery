@@ -1,12 +1,12 @@
-import React from 'react';
-import Image from 'next/image';
-import { BiSupport } from 'react-icons/bi';
-import { PiPhoneCallLight } from 'react-icons/pi';
-import { FaFacebook } from 'react-icons/fa';
-import { FaInstagram } from 'react-icons/fa';
-import { IoLogoTwitter } from 'react-icons/io';
-import { SiPicsart } from 'react-icons/si';
-import { FaYoutube } from 'react-icons/fa';
+import React from "react";
+import Image from "next/image";
+import { BiSupport } from "react-icons/bi";
+import { PiPhoneCallLight } from "react-icons/pi";
+import { FaFacebook } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
+import { IoLogoTwitter } from "react-icons/io";
+import { SiPicsart } from "react-icons/si";
+import { FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -30,20 +30,16 @@ const Footer = () => {
 
             <ul className="space-y-3 text-sm">
               <li>
-                {' '}
                 <strong>Address:</strong> 5171 W Campbell Ave Kent, Utah 53127
                 USA
               </li>
               <li>
-                {' '}
                 <strong>Call Us:</strong> (+91) 540-025-124553
               </li>
               <li>
-                {' '}
                 <strong>Email:</strong> sale@Nest.com
               </li>
               <li>
-                {' '}
                 <strong>Hours:</strong> 10:00 - 18:00, Mon - Sat
               </li>
             </ul>

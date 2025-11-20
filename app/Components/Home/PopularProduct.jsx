@@ -1,77 +1,16 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 
 const menuItems = [
   "All",
-  "Milks & Dairies",
-  "Coffes & Teas",
-  "Pet Foods",
-  "Meats",
-  "Vegetables",
-  "Fruits",
-];
-
-const products = [
-  {
-    id: 1,
-    name: "Fresh Cow Milk",
-    price: 4.5,
-    oldPrice: 6.0,
-    category: "Milks & Dairies",
-    img: "/images/product-2-1.jpg",
-    rating: 4,
-    badge: "Hot",
-  },
-  {
-    id: 2,
-    name: "Organic Tea Pack",
-    price: 6.2,
-    oldPrice: 8.5,
-    category: "Coffes & Teas",
-    img: "/images/product-3-1.jpg",
-    rating: 5,
-    badge: "New",
-  },
-  {
-    id: 3,
-    name: "Dry Cat Food",
-    price: 8.9,
-    oldPrice: 11.5,
-    category: "Pet Foods",
-    img: "/images/product-6-1.jpg",
-    rating: 4,
-    badge: "Sale",
-  },
-  {
-    id: 4,
-    name: "Fresh Meat Pack",
-    price: 12.3,
-    category: "Meats",
-    img: "/images/product-3-1.jpg",
-    rating: 5,
-    badge: "-20%",
-  },
-  {
-    id: 5,
-    name: "Vegetable Mixed",
-    price: 3.8,
-    category: "Vegetables",
-    img: "/images/product-6-1.jpg",
-    rating: 3,
-    badge: "Sale",
-  },
-  {
-    id: 6,
-    name: "Seasonal Fruits",
-    price: 5.0,
-    category: "Fruits",
-    img: "/images/product-3-1.jpg",
-    rating: 4,
-    badge: "Hot",
-  },
+  "Fragrances",
+  "Groceries",
+  "Beauty",
+  "Furniture",
+  "mens-shoes",
 ];
 
 const getBadgeColor = (badge) => {
@@ -88,12 +27,31 @@ const getBadgeColor = (badge) => {
 };
 
 const PopularProduct = () => {
+  const [products, setProducts] = useState([]);
   const [activeFilter, setActiveFilter] = useState("All");
+  const [loading, setLoading] = useState(true);
 
+  
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const res = await fetch("https://dummyjson.com/products?limit=100");
+        const data = await res.json();
+        setProducts(data.products);
+      } catch (err) {
+        console.log("Failed to load products:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchProducts();
+  }, []);
+
+  
   const filteredProducts =
     activeFilter === "All"
       ? products
-      : products.filter((p) => p.category === activeFilter);
+      : products.filter((p) => p.category.includes(activeFilter.toLowerCase()));
 
   return (
     <section className="py-12 container mx-auto">
@@ -118,66 +76,77 @@ const PopularProduct = () => {
         </div>
       </div>
 
+      {/* Loading State */}
+      {loading && <p className="text-center py-10">Loading products...</p>}
+
       {/* Product Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
-        {filteredProducts.map((product) => (
-          <div
-            key={product.id}
-            className="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition relative border border-gray-400"
-          >
-            {/* Badge */}
-            {product.badge && (
-              <span
-                className={`absolute top-2 left-2 text-xs px-2 py-1 rounded-md ${getBadgeColor(
-                  product.badge
-                )}`}
-              >
-                {product.badge}
-              </span>
-            )}
-
-            {/* Product Image */}
-            <Image
-              src={product.img}
-              alt={product.name}
-              width={120}
-              height={120}
-              className="mx-auto mb-3 object-contain"
-            />
-
-            {/* Product Name */}
-            <h3 className="font-semibold text-sm line-clamp-2">{product.name}</h3>
-
-            {/* Rating */}
-            <div className="flex items-center gap-1 mt-1">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <FaStar
-                  key={i}
-                  className={`text-sm ${
-                    i < product.rating ? "text-yellow-400" : "text-gray-300"
-                  }`}
-                />
-              ))}
-            </div>
-
-            {/* Price */}
-            <div className="mt-1">
-              <span className="text-green-600 font-bold">${product.price}</span>
-              {product.oldPrice && (
-                <span className="ml-2 text-gray-400 line-through">
-                  ${product.oldPrice}
+      {!loading && (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
+          {filteredProducts.slice(0, 12).map((product) => (
+            <div
+              key={product.id}
+              className="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition relative border"
+            >
+              {/* Badge */}
+              {product.brand && (
+                <span
+                  className={`absolute top-2 left-2 text-xs px-2 py-1 rounded-md ${getBadgeColor(
+                    "Sale"
+                  )}`}
+                >
+                  {product.brand}
                 </span>
               )}
-            </div>
 
-            {/* Add to Cart */}
-            <button className="mt-3 w-full flex items-center justify-center gap-2 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
-              <FiShoppingCart />
-              Add to Cart
-            </button>
-          </div>
-        ))}
-      </div>
+              {/* Product Image */}
+              <Image
+                src={product.thumbnail}
+                alt={product.title}
+                width={120}
+                height={120}
+                className="mx-auto mb-3 object-contain"
+              />
+
+              {/* Product Name */}
+              <h3 className="font-semibold text-sm line-clamp-2">
+                {product.title}
+              </h3>
+
+              {/* Rating */}
+              <div className="flex items-center gap-1 mt-1">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <FaStar
+                    key={i}
+                    className={`text-sm ${
+                      i < Math.round(product.rating)
+                        ? "text-yellow-400"
+                        : "text-gray-300"
+                    }`}
+                  />
+                ))}
+              </div>
+
+              {/* Price */}
+              <div className="mt-1">
+                <span className="text-green-600 font-bold">
+                  ${product.price}
+                </span>
+                {product.discountPercentage && (
+                  <span className="ml-2 text-gray-400 line-through">
+                    ${(product.price + product.price * (product.discountPercentage / 100)).toFixed(2)}
+                  </span>
+                )}
+              </div>
+
+              {/* Add to Cart */}
+              <button className="mt-3 w-full flex items-center justify-center gap-2 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
+                <FiShoppingCart />
+                Add to Cart
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 };
