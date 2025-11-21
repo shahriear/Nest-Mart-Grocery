@@ -14,7 +14,7 @@ export default function AboutHero() {
     '/images/about-2.png',
     '/images/about-4.png',
     '/images/about-3.png',
-    '/images/about-4.png',
+    
   ];
 
   const settings = {
@@ -22,7 +22,7 @@ export default function AboutHero() {
     infinite: true,
     speed: 700,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 2000,
     slidesToShow: 3,
     slidesToScroll: 1,
     arrows: false,
@@ -69,7 +69,7 @@ export default function AboutHero() {
                   width={400}
                   height={300}
                   alt="Slider Image"
-                  className="rounded-xl w-full object-cover"
+                  className="rounded-xl cursor-pointer w-full object-cover"
                 />
               </div>
             ))}
@@ -78,7 +78,7 @@ export default function AboutHero() {
           {/* CUSTOM LEFT BUTTON */}
           <button
             onClick={() => sliderRef.current.slickPrev()}
-            className="absolute top-1/2 left-3 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow hover:bg-white"
+            className="absolute top-1/2 left-3 -translate-y-1/2 cursor-pointer bg-white/80 p-2 rounded-full shadow hover:bg-white"
           >
             <ChevronLeft size={24} />
           </button>
@@ -86,7 +86,7 @@ export default function AboutHero() {
           {/* CUSTOM RIGHT BUTTON */}
           <button
             onClick={() => sliderRef.current.slickNext()}
-            className="absolute top-1/2 right-3 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow hover:bg-white"
+            className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer bg-white/80 p-2 rounded-full shadow hover:bg-white"
           >
             <ChevronRight size={24} />
           </button>
