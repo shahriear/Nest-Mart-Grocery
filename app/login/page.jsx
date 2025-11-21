@@ -1,13 +1,19 @@
-
 'use client';
 import { useState } from 'react';
 import { Mail, Lock } from 'lucide-react';
 import Link from 'next/link';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const emailSuggestions = [
+    'user@example.com',
+    'test@gmail.com',
+    'hello@world.com',
+  ];
 
   const handleLogin = async e => {
     e.preventDefault();
@@ -21,26 +27,41 @@ export default function LoginPage() {
       });
 
       if (res.ok) {
-        // redirect to account
-        window.location.href = '/account';
+        toast.success('Login successful!');
+        setTimeout(() => {
+          window.location.href = '/account';
+        }, 1000);
       } else {
         const data = await res.json();
-        alert(data?.message || 'Invalid credentials');
+        toast.error(data?.message || 'Wrong credentials');
       }
     } catch (err) {
       console.error(err);
-      alert('Network error');
+      toast.error('Network error');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+    <div className="py-26 flex items-center justify-center bg-red-50 p-4">
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          duration: 3000, // 3 seconds
+          style: {
+            width: "300px",
+            borderRadius: '10px',
+            background: '#fff',
+            color: '#333',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+          },
+        }}
+      />
+
       <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-        {/* Left: Illustration (user uploaded image path used here) */}
+        {/* Left: Illustration */}
         <div className="hidden md:flex items-center justify-center">
-          {/* using the local uploaded image path you provided */}
           <img
             src="/images/login-1.png"
             alt="promo"
@@ -51,7 +72,7 @@ export default function LoginPage() {
         {/* Right: Form */}
         <div className="bg-white shadow-xl rounded-2xl p-8 border">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">
-            Welcome back 
+            Welcome back
           </h2>
           <p className="text-sm text-gray-500 mb-6">
             Login to access your account and orders.
@@ -67,9 +88,15 @@ export default function LoginPage() {
                   required
                   value={email}
                   onChange={e => setEmail(e.target.value)}
+                  list="email-suggestions"
                   placeholder="example@gmail.com"
                   className="flex-1 outline-none pl-3"
                 />
+                <datalist id="email-suggestions">
+                  {emailSuggestions.map((e, i) => (
+                    <option key={i} value={e} />
+                  ))}
+                </datalist>
               </div>
             </div>
 

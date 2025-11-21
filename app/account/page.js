@@ -10,6 +10,11 @@ import {
   Settings,
   LogOut,
 } from 'lucide-react';
+import OrdersPage from '../Components/Account/Order';
+import OrderTracking from '../Components/Account/OrderTracking';
+import MyAddress from '../Components/Account/MyAddress';
+import Wishlist from '../Components/Account/Wishlist';
+import SettingsUi from '../Components/Account/SettingsUi';
 
 export default function AccountPage() {
   const params = useSearchParams();
@@ -30,32 +35,35 @@ export default function AccountPage() {
       case 'orders':
         return (
           <div>
-            <h2 className="text-xl font-semibold">Your Orders</h2>
-            <p>No orders yet.</p>
+            <OrdersPage />
           </div>
         );
       case 'track':
         return (
           <div>
-            <h2 className="text-xl font-semibold">Track Order</h2>
+            
+            <OrderTracking/>
           </div>
         );
       case 'address':
         return (
           <div>
-            <h2 className="text-xl font-semibold">Addresses</h2>
+            
+            <MyAddress/>
           </div>
         );
       case 'wishlist':
         return (
           <div>
-            <h2 className="text-xl font-semibold">Wishlist</h2>
+            
+            <Wishlist/>
           </div>
         );
       case 'settings':
         return (
           <div>
-            <h2 className="text-xl font-semibold">Settings</h2>
+            
+            <SettingsUi/>
           </div>
         );
       case 'logout':
@@ -67,15 +75,19 @@ export default function AccountPage() {
       default:
         return (
           <div>
-            <h2 className="text-2xl font-bold">Hello!</h2>
-            <p>Welcome to your dashboard.</p>
+            <h2 className="text-2xl font-bold">Hello Shuvo!</h2>
+            <p className=" w-1/2 mt-10 text-gray-500">
+              From your account dashboard. you can easily check & view your
+              recent orders, manage your shipping and billing addresses and edit
+              your password and account details.
+            </p>
           </div>
         );
     }
   };
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto py-10 md:px-40">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* sidebar */}
         <div className="space-y-3">
@@ -83,7 +95,7 @@ export default function AccountPage() {
             <Link
               key={m.key}
               href={`/account?tab=${m.key}`}
-              className={`flex items-center gap-3 p-3 rounded-lg border transition ${
+              className={`flex items-center gap-3 p-3 rounded-lg border border-gray-300 transition ${
                 tab === m.key ? 'bg-green-600 text-white' : 'bg-white'
               }`}
             >
@@ -94,7 +106,7 @@ export default function AccountPage() {
         </div>
 
         {/* content */}
-        <div className="col-span-3 bg-white p-6 rounded-xl shadow">
+        <div className="col-span-3 bg-gray-100 p-6 rounded-xl shadow">
           {renderContent()}
         </div>
       </div>
