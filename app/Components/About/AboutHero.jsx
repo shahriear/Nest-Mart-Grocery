@@ -1,46 +1,37 @@
-"use client";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+'use client';
+import Image from 'next/image';
+import Slider from 'react-slick';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useRef } from 'react';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 export default function AboutHero() {
+  const sliderRef = useRef(null);
+
   const sliderImages = [
-    "/images/about-4.png",
-    "/images/about-2.png",
-    "/images/about-4.png",
-    "/images/about-3.png",
-    "/images/about-4.png",
+    '/images/about-4.png',
+    '/images/about-2.png',
+    '/images/about-4.png',
+    '/images/about-3.png',
+    '/images/about-4.png',
   ];
 
-  const [index, setIndex] = useState(0);
-
-  // Move to next slide
-  const nextSlide = () => {
-    setIndex((prev) =>
-      prev + 1 >= sliderImages.length - 2 ? 0 : prev + 1
-    );
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 700,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    arrows: false,
+    pauseOnHover: false,
   };
-
-  // Move to previous slide
-  const prevSlide = () => {
-    setIndex((prev) =>
-      prev - 1 < 0 ? sliderImages.length - 3 : prev - 1
-    );
-  };
-
-  // Auto slide every 3 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 3000);
-
-    return () => clearInterval(interval);
-  });
 
   return (
     <div className="container mx-auto px-4 py-12 grid md:grid-cols-2 gap-10 items-center">
-
-      {/* LEFT STATIC IMAGE */}
+      {/* LEFT SIDE IMAGE */}
       <div className="flex justify-center">
         <Image
           src="/images/about-1.png"
@@ -51,7 +42,7 @@ export default function AboutHero() {
         />
       </div>
 
-      {/* RIGHT TEXT + SLIDER */}
+      {/* RIGHT SIDE TEXT + SLIDER */}
       <div>
         <h4 className="text-green-600 font-semibold mb-2">About Us</h4>
 
@@ -69,39 +60,32 @@ export default function AboutHero() {
         </p>
 
         {/* SLIDER */}
-        <div className="relative w-full overflow-hidden mt-6">
-
-          <div
-            className="flex transition-transform duration-700"
-            style={{
-              transform: `translateX(-${index * (100 / 3)}%)`,
-              width: `${(sliderImages.length / 3) * 100}%`,
-            }}
-          >
+        <div className="relative w-full mt-6">
+          <Slider ref={sliderRef} {...settings}>
             {sliderImages.map((img, i) => (
-              <div key={i} className="w-1/3 px-2">
+              <div key={i} className="px-2">
                 <Image
                   src={img}
                   width={400}
                   height={300}
-                  alt="Slider Images"
+                  alt="Slider Image"
                   className="rounded-xl w-full object-cover"
                 />
               </div>
             ))}
-          </div>
+          </Slider>
 
-          {/* LEFT ARROW */}
+          {/* CUSTOM LEFT BUTTON */}
           <button
-            onClick={prevSlide}
+            onClick={() => sliderRef.current.slickPrev()}
             className="absolute top-1/2 left-3 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow hover:bg-white"
           >
             <ChevronLeft size={24} />
           </button>
 
-          {/* RIGHT ARROW */}
+          {/* CUSTOM RIGHT BUTTON */}
           <button
-            onClick={nextSlide}
+            onClick={() => sliderRef.current.slickNext()}
             className="absolute top-1/2 right-3 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow hover:bg-white"
           >
             <ChevronRight size={24} />
