@@ -10,11 +10,12 @@ import {
   Settings,
   LogOut,
 } from 'lucide-react';
-import OrdersPage from '../Components/Account/Order';
-import OrderTracking from '../Components/Account/OrderTracking';
-import MyAddress from '../Components/Account/MyAddress';
-import Wishlist from '../Components/Account/Wishlist';
-import SettingsUi from '../Components/Account/SettingsUi';
+import OrdersPage from '@/app/Components/Account/Order';
+import OrderTracking from '@/app/Components/Account/OrderTracking';
+import MyAddress from '@/app/Components/Account/MyAddress';
+import Wishlist from '@/app/Components/Account/Wishlist';
+import SettingsUi from '@/app/Components/Account/SettingsUi';
+
 
 export default function AccountPage() {
   const params = useSearchParams();

@@ -27,27 +27,27 @@ const Navbar = () => {
 
   const dropdownMenus = {
     Shop: [
-      { label: "Shop Grid", href: "/shop" },
-      { label: "Shop List", href: "/shop-list" },
-      { label: "Shop Single", href: "/shop-single" },
+      { label: 'Shop Grid', href: '/shop' },
+      { label: 'Shop List', href: '/shop?tab=Shop-List' },
+      { label: 'Shop Single', href: '/shop?tab=Shop-Single' },
     ],
     Vendors: [
-      { label: "Vendor List", href: "/vendors" },
-      { label: "Vendor Single", href: "/vendor-single" },
+      { label: 'Vendor List', href: '/vendors' },
+      { label: 'Vendor Single', href: '/vendor-single' },
     ],
     MegaMenu: [
-      { label: "Category 1", href: "/cat-1" },
-      { label: "Category 2", href: "/cat-2" },
-      { label: "Category 3", href: "/cat-3" },
+      { label: 'Category 1', href: '/cat-1' },
+      { label: 'Category 2', href: '/cat-2' },
+      { label: 'Category 3', href: '/cat-3' },
     ],
     Blog: [
-      { label: "Blog Grid", href: "/blog" },
-      { label: "Blog Details", href: "/blog-single" },
+      { label: 'Blog Grid', href: '/blog' },
+      { label: 'Blog Details', href: '/blog-single' },
     ],
     Pages: [
-      { label: "About Us", href: "/about" },
-      { label: "Contact", href: "/contact" },
-      { label: "FAQ", href: "/faq" },
+      { label: 'About Us', href: '/about' },
+      { label: 'Contact', href: '/contact' },
+      { label: 'FAQ', href: '/faq' },
     ],
   };
 
