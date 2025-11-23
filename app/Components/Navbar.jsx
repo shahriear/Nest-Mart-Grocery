@@ -57,11 +57,13 @@ const Navbar = () => {
       <div className="border-b border-gray-300">
         <div className="flex items-center justify-between px-4 py-4 gap-10 container mx-auto">
           {/* Logo */}
-          <img
-            src="/images/logo.svg"
-            alt="Nest Logo"
-            className="w-auto h-auto"
-          />
+          <Link href={'/'}>
+            <img
+              src="/images/logo.svg"
+              alt="Nest Logo"
+              className="w-auto h-auto"
+            />
+          </Link>
 
           {/* Search Bar */}
           <div className="hidden md:flex items-center border border-green-300 rounded-full w-1/2 ">
@@ -158,7 +160,7 @@ const Navbar = () => {
           <Link href="/about">About</Link>
 
           {/* Hover Dropdown Menus */}
-          {Object.keys(dropdownMenus).map((menuName) => (
+          {Object.keys(dropdownMenus).map(menuName => (
             <div key={menuName} className="relative group cursor-pointer">
               <span className="flex items-center gap-1 hover:text-green-600">
                 {menuName}
